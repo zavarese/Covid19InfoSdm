@@ -1,12 +1,15 @@
 package br.edu.ifsp.scl.covid19infosdm
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import br.edu.ifsp.scl.covid19infosdm.model.dataclass.*
+import br.edu.ifsp.scl.covid19infosdm.model.dataclass.ByCountryResponseList
+import br.edu.ifsp.scl.covid19infosdm.model.dataclass.ByCountryResponseListItem
+import br.edu.ifsp.scl.covid19infosdm.model.dataclass.DayOneResponseList
+import br.edu.ifsp.scl.covid19infosdm.model.dataclass.DayOneResponseListItem
 import br.edu.ifsp.scl.covid19infosdm.viewmodel.Covid19ViewModel
 import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter
 import com.jjoe64.graphview.series.DataPoint
@@ -14,6 +17,7 @@ import com.jjoe64.graphview.series.LineGraphSeries
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: Covid19ViewModel
@@ -54,6 +58,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun countryAdapterInit() {
+
+
         /* Preenchido por Web Service */
         countryAdapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1)
         countryNameSlugMap = mutableMapOf()
@@ -66,9 +72,14 @@ class MainActivity : AppCompatActivity() {
                         countryAdapter.add(countryListItem.country)
                         countryNameSlugMap[countryListItem.country] = countryListItem.slug
                     }
+
+                    if(countryListItem.country.equals("Brazil")){
+                        countrySp.setSelection(30)
+                    }
                 }
             }
         )
+
     }
 
     private fun informationAdapterInit() {
